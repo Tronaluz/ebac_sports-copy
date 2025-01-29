@@ -1,30 +1,32 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import { store, RootState } from './store'
-import Header from './components/Header'
-import Produtos from './components/Produtos'
+import { useSelector } from 'react-redux'
+import * as S from './styles'
+import cesta from '../../assets/cesta.png'
+import { paraReal } from '../Produto'
+import { RootReducer } from '../../store'
 
-import { GlobalStyle } from './styles'
+const Header = () => {
+  const itens = useSelector((state: RootReducer) => state.carrinho.itens)
+  const favoritos = useSelector(
+    (state: RootReducer) => state.favoritar.favoritos
+  )
 
-export type Produto = {
-  id: number
-  nome: string
-  preco: number
-  imagem: string
-}
+  const valorTotal = itens.reduce((acc, item) => {
+    acc += item.preco
+    return acc
+  }, 0)
 
-export type { RootState }
-
-function App() {
   return (
-    <Provider store={store}>
-      <GlobalStyle />
-      <div className="container">
-        <Header />
-        <Produtos />
+    <S.Header>
+      <h1>EBAC Sports</h1>
+      <div>
+        <span>{favoritos.length} favoritos</span>
+        <img src={cesta} />
+        <span>
+          {itens.length} itens, valor total: {paraReal(valorTotal)}
+        </span>
       </div>
-    </Provider>
+    </S.Header>
   )
 }
 
-export default App
+export default Header

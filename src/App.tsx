@@ -1,10 +1,8 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import { store, RootState } from './store'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
-
 import { GlobalStyle } from './styles'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 export type Produto = {
   id: number
@@ -12,8 +10,6 @@ export type Produto = {
   preco: number
   imagem: string
 }
-
-export type { RootState }
 
 function App() {
   return (
